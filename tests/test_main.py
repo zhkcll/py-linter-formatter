@@ -74,11 +74,19 @@ def test_format_linter_error(error_linter, error_mate):
     )
 
 
-def test_format_linter_error_one_line():
-    code = inspect.getsource(format_linter_error)
+@pytest.mark.parametrize(
+    "func",
+    [
+        format_linter_error,
+        format_single_linter_file,
+        format_linter_report,
+    ],
+)
+def test_format_functions_one_line(func):
+    code = inspect.getsource(func)
     assert (
         isinstance(ast.parse(code).body[0].body[0], ast.Return) is True
-    ), "Function 'format_linter_error' should contain only return statement"
+    ), f"Function '{func.__name__}' should contain only return statement"
 
 
 @pytest.mark.parametrize(
@@ -135,13 +143,6 @@ def test_format_single_linter_file(file_path, errors, result):
         f"when 'file_path' equals to {file_path}, "
         f"and 'errors' equals to {errors}"
     )
-
-
-def test_format_single_linter_file_one_line():
-    code = inspect.getsource(format_single_linter_file)
-    assert (
-        isinstance(ast.parse(code).body[0].body[0], ast.Return) is True
-    ), "Function 'format_single_linter_file' should contain only return statement"
 
 
 @pytest.mark.parametrize(
@@ -342,10 +343,3 @@ def test_format_linter_report(errors_linter, errors_mate):
         f"Function 'format_linter_report' should return {errors_mate} "
         f"when 'errors' equals to {errors_linter}"
     )
-
-
-def test_format_linter_report_one_line():
-    code = inspect.getsource(format_linter_report)
-    assert (
-        isinstance(ast.parse(code).body[0].body[0], ast.Return) is True
-    ), "Function 'format_linter_report' should contain only return statement"

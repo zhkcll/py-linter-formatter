@@ -1,3 +1,7 @@
+# Linter formatter
+
+- Read [the guideline](https://github.com/mate-academy/py-task-guideline/blob/main/README.md) before start
+
 Линтер flake8 выдает такой отчет об ошибках при проверке каталога с файлами исходного 
 кода:
 ```python
